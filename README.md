@@ -1,7 +1,7 @@
 ## Table of contents
 * [General info](#general-info)
 * [Setup](#setup)
-* [Constraints] (#constraints)
+* [Constraints](#constraints)
 
 ## General Info
 Project stub contains REST APIs for
