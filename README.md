@@ -7,7 +7,7 @@
 Project stub contains REST APIs for
 1. Retrieving Banking Accounts - /banking/accounts
 2. Reetrieving list of transactions for a given account number - /banking/transactions/{accountNumber}
-Content Negotiation - Accepts JSON and XML
+
 
 ## Setup
 1. Execute the project as a regular Spring Boot app
@@ -17,4 +17,5 @@ Content Negotiation - Accepts JSON and XML
 ## Constraints
 1. Have implemented simple Exception handler due to time constraints
 2. Simple JUnit tests have been implemented. No integration tests have been written 
+3. Content Negotiation - Accepts JSON and XML
 
