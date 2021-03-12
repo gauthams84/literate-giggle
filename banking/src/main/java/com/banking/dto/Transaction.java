@@ -56,6 +56,18 @@ public class Transaction implements Serializable {
 		this.transactionType = transactionType;
 		this.transactionNarrative = transactionNarrative;
 	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "Transaction [accountNumber=" + accountNumber + ", accountType=" + accountType + ", transactionDate="
+				+ transactionDate + ", currency=" + currency + ", creditAmount=" + creditAmount + ", debitAmount="
+				+ debitAmount + ", transactionType=" + transactionType + ", transactionNarrative="
+				+ transactionNarrative + "]";
+	}
+
+
 
 	public Transaction() {
 		// TODO Auto-generated constructor stub
