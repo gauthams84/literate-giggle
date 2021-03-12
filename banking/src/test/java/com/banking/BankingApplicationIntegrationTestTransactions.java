@@ -12,6 +12,10 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.banking.dto.Transaction;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * This integration uses TestRestTemplate
  * 
@@ -24,6 +28,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 public class BankingApplicationIntegrationTestTransactions {
 
 	TestRestTemplate restTemplate = new TestRestTemplate();
+	
+	ObjectMapper mapper = new ObjectMapper();
 
 	String expectedTransactions = "{accountNumber=321143048, accountType=Current, "
 			+ "transactionDate=11/03/2021 13:00:00, currency=AUD, "
@@ -31,12 +37,42 @@ public class BankingApplicationIntegrationTestTransactions {
 
 	int accountNumber = 321143048;
 
+	String url = "http://localhost:8080/banking/transactions/";
+
+	private Transaction getMockTransaction() {
+		Transaction tr = new Transaction();
+		tr.setAccountNumber(accountNumber);
+		tr.setAccountType("Current");
+		tr.setCreditAmount(3000.5);
+		return tr;
+	}
+
 	@Test
 	public void testTransactions() {
-		ResponseEntity<List> transaction = restTemplate
-				.getForEntity("http://localhost:8080/banking/transactions/" + accountNumber, List.class);
+
+		/**
+		 * Returns entity object
+		 */
+		ResponseEntity<List> transaction = restTemplate.getForEntity(url + accountNumber, List.class);
 		assertEquals(transaction.getStatusCodeValue(), 200);
 		assertTrue(transaction.getBody().toString().contains(expectedTransactions));
+		/**
+		 * Returns result object
+		 */
+		/**
+		 * List.class returns a hashMap since it does not know the type of class (In this case, DTO- account)
+		 *  Hence, it needs to be converter using mapper.convert value
+		 *  
+		 */
+		List<Transaction> transactions = restTemplate.getForObject(url + accountNumber, List.class);
+		List<Transaction> accountList = mapper.convertValue(	
+				transactions, 
+			    new TypeReference<List<Transaction>>(){}
+			);
+		assertEquals(accountList.get(0).getAccountNumber(), getMockTransaction().getAccountNumber());
+	
+
+		
 	};
 
 }
