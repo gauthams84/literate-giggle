@@ -60,6 +60,7 @@ public class BankingApplicationIntegrationTestTransactions {
 		 * Returns result object
 		 */
 		/**
+		 * Jackson while deserializing sees list.class
 		 * List.class returns a hashMap since it does not know the type of class (In this case, DTO- account)
 		 *  Hence, it needs to be converter using mapper.convert value
 		 *  
